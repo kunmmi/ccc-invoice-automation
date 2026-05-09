@@ -1,0 +1,19 @@
+services:
+  - type: cron
+    name: ccc-monthly-invoice-row-creator
+    runtime: node
+    plan: starter
+    schedule: "0 5 1 * *"
+    buildCommand: npm ci
+    startCommand: npm run invoice:monthly
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: MONDAY_API_TOKEN
+        sync: false
+      - key: MONDAY_CONTRACTORS_BOARD_ID
+        value: "18409241018"
+      - key: MONDAY_INVOICES_BOARD_ID
+        value: "18410126530"
+      - key: MONDAY_INVOICES_GROUP_ID
+        value: group_title

@@ -1,0 +1,15 @@
+{
+  "name": "ccc-invoice-automation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "invoice:monthly": "tsx scripts/monthly-invoice-row-creator.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
