@@ -1,6 +1,6 @@
 # CCC Invoice Automation
 
-Standalone Render Cron Job for creating monthly CCC invoice rows in Monday.com.
+Standalone GitHub Actions scheduled job for creating monthly CCC invoice rows in Monday.com.
 
 ## What It Does
 
@@ -10,13 +10,17 @@ Standalone Render Cron Job for creating monthly CCC invoice rows in Monday.com.
 - Skips invoice rows that already exist by invoice item name.
 - Sets invoice status, due date, and service type during item creation.
 
-## Deploy To Render
+## Deploy With GitHub Actions
 
 1. Rotate the Monday API token that appeared in the exported n8n JSON.
-2. Push this folder to a new GitHub repo.
-3. In Render, create a new Blueprint from that repo.
-4. Set `MONDAY_API_TOKEN` to the rotated token when prompted.
-5. Trigger a manual run once from Render before relying on the schedule.
+2. In GitHub, open this repo's **Settings**.
+3. Go to **Secrets and variables** -> **Actions**.
+4. Under **Repository secrets**, add `MONDAY_API_TOKEN` with the rotated token.
+5. Open the **Actions** tab.
+6. Select **Monthly Invoice Row Creator**.
+7. Click **Run workflow** once before relying on the schedule.
+
+The workflow runs monthly at 05:00 UTC on the 1st of the month.
 
 ## Local Checks
 

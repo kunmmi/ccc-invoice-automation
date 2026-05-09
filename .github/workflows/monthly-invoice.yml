@@ -1,0 +1,32 @@
+name: Monthly Invoice Row Creator
+
+on:
+  schedule:
+    # Runs at 05:00 UTC on the 1st of every month, which is 06:00 in Lagos.
+    - cron: "0 5 1 * *"
+  workflow_dispatch:
+
+jobs:
+  create-invoice-rows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MONDAY_API_TOKEN: ${{ secrets.MONDAY_API_TOKEN }}
+      MONDAY_CONTRACTORS_BOARD_ID: ${{ vars.MONDAY_CONTRACTORS_BOARD_ID || '18409241018' }}
+      MONDAY_INVOICES_BOARD_ID: ${{ vars.MONDAY_INVOICES_BOARD_ID || '18410126530' }}
+      MONDAY_INVOICES_GROUP_ID: ${{ vars.MONDAY_INVOICES_GROUP_ID || 'group_title' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create monthly invoice rows
+        run: npm run invoice:monthly
